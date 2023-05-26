@@ -71,15 +71,15 @@ public class CardTrick {
         System.out.println();
 
         System.out.println("My career ambitions:");
-        System.out.println("-- Security Consultant");
-        System.out.println("-- Cloud Engineer");
+        System.out.println("-- Software Engineer");
+        System.out.println("-- Investment Banker");
         System.out.println();
 
         System.out.println("My hobbies:");
-        System.out.println("-- Golf");
-        System.out.println("-- Music");
+        System.out.println("-- FootBall");
         System.out.println("-- Movies");
-        System.out.println("-- Soccer");
+        System.out.println("-- Sight-Seeing");
+        System.out.println("-- Piano");
 
         System.out.println();
     }
