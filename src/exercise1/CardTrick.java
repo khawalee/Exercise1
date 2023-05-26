@@ -7,61 +7,114 @@ package exercise1;
  *
  * @author dancye
  * @author Paul Bonenfant Jan 25, 2022 
+ * Updated by: Waleed Khan May 26th, 2023.
  */
+
+import java.util.Random;
+import java.util.Scanner;
+
 public class CardTrick {
-    
+
     public static void main(String[] args) {
-        
         Card[] hand = new Card[7];
 
         for (int i = 0; i < hand.length; i++) {
             Card card = new Card();
-            //card.setValue(insert call to random number generator here)
-            // 
-            //card.setSuit(Card.SUITS[insert call to random number between 0-3 here])
-            // Hint: You can use Random -> random.nextInt(n) to get a random number between 0 and n-1 (inclusive)
-            //       Don't worry about duplicates at this point
+            card.setValue(getRandomNumber());
+            card.setSuit(Card.SUITS[getRandomNumber(4)]);
+            hand[i] = card;
         }
 
-        // insert code to ask the user for Card value and suit, create their card
-        // and search the hand here. 
-        // Hint: You can ask for values 1 to 10, and then
-        //       11 for jack, 12 for queen, etc. (remember arrays are 0-based though)
-        //       1 for Hearts, 2 for Diamonds, etc. (remember arrays are 0-based though)
-        // 
-        // Then loop through the cards in the array to see if there's a match.
-        
-        // If the guess is successful, invoke the printInfo() method below.
-        
+        Card userCard = getUserCard();
+
+        boolean cardFound = searchForCard(hand, userCard);
+
+        if (cardFound) {
+            printInfo();
+        } else {
+            System.out.println("Sorry, your card is not in the hand.");
+        }
     }
 
-    /**
-     * A simple method to print out personal information. Follow the instructions to 
-     * replace this information with your own.
-     * @author Paul Bonenfant Jan 2022
-     */
+    private static Card getUserCard() {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Pick a card:");
+        System.out.print("Enter the value (1-10, 11 for Jack, 12 for Queen, 13 for King): ");
+        int value = scanner.nextInt();
+
+        System.out.print("Enter the suit (1 for Hearts, 2 for Diamonds, 3 for Clubs, 4 for Spades): ");
+        int suit = scanner.nextInt();
+
+        Card userCard = new Card();
+        userCard.setValue(value);
+        userCard.setSuit(Card.SUITS[suit - 1]);
+
+        return userCard;
+    }
+
+    private static boolean searchForCard(Card[] hand, Card card) {
+        for (Card c : hand) {
+            if (c.getValue() == card.getValue() && c.getSuit().equals(card.getSuit())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+
     private static void printInfo() {
-    
         System.out.println("Congratulations, you guessed right!");
         System.out.println();
-        
-        System.out.println("My name is Paul, but you can call me prof, Paul or sir");
+
+        System.out.println("My name is Waleed Khan");
         System.out.println();
-        
+
         System.out.println("My career ambitions:");
-        System.out.println("-- Be more active on LinkedIn");
-        System.out.println("-- Have a semester with no violations of academic integrity!");
-	System.out.println();	
+        System.out.println("-- Security Consultant");
+        System.out.println("-- Cloud Engineer");
+        System.out.println();
 
         System.out.println("My hobbies:");
-        System.out.println("-- Investing");
-        System.out.println("-- Cooking");
-        System.out.println("-- Reading/Watching TV");
-        System.out.println("-- Riding my motorcycle");
+        System.out.println("-- Golf");
+        System.out.println("-- Music");
+        System.out.println("-- Movies");
+        System.out.println("-- Soccer");
 
         System.out.println();
-        
-    
     }
 
+    private static int getRandomNumber() {
+        Random random = new Random();
+        return random.nextInt(11);
+    }
+
+    private static int getRandomNumber(int limit) {
+        Random random = new Random();
+        return random.nextInt(limit);
+    }
+
+    static class Card {
+        public static final String[] SUITS = {"Hearts", "Diamonds", "Clubs", "Spades"};
+        private int value;
+        private String suit;
+
+        public void setValue(int value) {
+            this.value = value;
+        }
+
+        public void setSuit(String suit) {
+            this.suit = suit;
+        }
+
+        public int getValue() {
+            return value;
+        }
+
+        public String getSuit() {
+            return suit;
+        }
+    }
 }
+
+
